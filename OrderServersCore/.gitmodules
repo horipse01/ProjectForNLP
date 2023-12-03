@@ -1,0 +1,14 @@
+[submodule "src/main/scala/Plugins/CommonUtils"]
+	path = src/main/scala/Plugins/CommonUtils
+	url = ../../../plugins/CommonUtils.git
+	branch = master
+[submodule "src/main/scala/Plugins/ClusterSystem"]
+	path = src/main/scala/Plugins/ClusterSystem
+	url = ../../../plugins/ClusterSystem.git
+	branch = master
+[submodule "src/main/scala/Plugins/OrderServersShared"]
+	path = src/main/scala/Plugins/OrderServersShared
+	url = ../OrderServersSharedScala.git
+[submodule "src/main/scala/Plugins/OrderServersApi"]
+	path = src/main/scala/Plugins/OrderServersApi
+	url = ../OrderServersApiScala.git

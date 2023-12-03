@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: $CI_APP_NAME
+  namespace: $CI_COMMIT_BRANCH
+spec:
+  selector:
+    matchLabels:
+      app: app-$CI_APP_NAME
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-$CI_APP_NAME
+    spec:
+      volumes:
+        - name: logback-data
+          emptyDir: {}
+      containers:
+        - name: $CI_APP_NAME-container-logger
+          image: 10.1.18.29:30002/library/qianfang/qianfang-filebeat:1.0.3
+          ports:
+            - containerPort: 7999
+          volumeMounts:
+            - name: logback-data
+              mountPath: /containerdata
+          imagePullPolicy: IfNotPresent
+        - name: $CI_APP_NAME
+          image: $CI_IMAGE
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: logback-data
+              mountPath: /data

@@ -1,0 +1,62 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_DEPTH: '0'
+
+default:
+  tags:
+    - shell
+    - a2
+  before_script:
+    - export WORKER_PROCESS=1
+    - export REGISTRY_IMAGE_LOWER=$(echo "${CI_GITLAB_REGISTRY_IMAGE}" | tr '[:upper:]' '[:lower:]')
+    - export CI_GITLAB_REGISTRY_IMAGE=$(echo "${CI_GITLAB_REGISTRY_IMAGE}"  | tr '[:upper:]' '[:lower:]')
+    - export PROJECT_NAME_LOWER=$(echo "$CI_PROJECT_NAME" | tr '[:upper:]' '[:lower:]')
+    - export CI_APP_NAME="$PROJECT_NAME_LOWER-$CI_PROJECT_ID"
+    - export CI_IMAGE="${REGISTRY_IMAGE_LOWER}:${CI_COMMIT_BRANCH}"
+    - export CI_PROJ_NAME=$(echo "${CI_PROJECT_NAME}"  | tr '[:upper:]' '[:lower:]')
+    - export APP_DOMAIN="${CI_PROJ_NAME}.${CI_COMMIT_BRANCH}.app.functor.cn"
+    - export APP_ADDRESS="http://${APP_DOMAIN}:32311/"
+    - export CI_EXPOSE_PORT="80"
+
+
+.cache:
+  # cache:
+  #   - key:
+  #       files:
+  #       - package.json
+  #     paths:
+  #       - .yarn-cache/
+  #     when: always
+  script:
+    - yarn install --prefer-offline #--cache-folder .yarn-cache
+
+.artifacts:
+  artifacts:
+    paths:
+    - html
+
+  
+build:
+  extends:
+    - .artifacts
+  stage: build
+  # cache:
+  #   - !reference [.cache, cache]
+  script:
+    - !reference [.cache, script]
+    - yarn build
+    - mv build html
+    - envsubst < Dockerfile > DockerfileNew
+    - echo $CI_PASSWORD | docker login "${CI_GITLAB_REGISTRY}" --username "${CI_USERNAME}" --password-stdin
+    - docker build  -f DockerfileNew . -t "$CI_IMAGE"
+    - docker push "$CI_IMAGE"
+
+deploy:
+  tags:
+    - shell_a1
+  stage: deploy
+  script:
+    - ls html
+    - envsubst < k8s-app.yaml | tee | kubectl replace --force -f - 
+    - echo $CI_APP_NAME
+    

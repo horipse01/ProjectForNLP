@@ -1,0 +1,52 @@
+package Plugins.ClusterSystem.ToClusterMessages
+
+import Plugins.CommonUtils.ServiceCenter._
+
+object RouteMap {
+  val routeMap:Map[String, MQRoute]=Map(
+    newTestServiceServiceCode -> ToNewTestServiceMessage.newTestServiceRoute,
+    foodOrderServiceCode -> ToFoodOrderMessage.foodOrderRoute,
+    wShop2ServiceCode -> ToWShop2Message.wShop2Route,
+    mSFoodInfoServiceCode -> ToMSFoodInfoMessage.mSFoodInfoRoute,
+    login2ServiceCode -> ToLogin2Message.login2Route,
+    apartmentInfoServiceCode -> ToApartmentInfoMessage.apartmentInfoRoute,
+    wshopInfoServiceCode -> ToWshopInfoMessage.wshopInfoRoute,
+    newTestService03ServiceCode -> ToNewTestService03Message.newTestService03Route,
+    testTimeout02ServiceCode -> ToTestTimeout02Message.testTimeout02Route,
+    hHLoginServiceCode -> ToHHLoginMessage.hHLoginRoute,
+    usersInfoServiceCode -> ToUsersInfoMessage.usersInfoRoute,
+    h3InfoServiceCode -> ToH3InfoMessage.h3InfoRoute,
+    userServerServiceCode -> ToUserServerMessage.userServerRoute,
+    hHShop2PortalServiceCode -> ToHHShop2PortalMessage.hHShop2PortalRoute,
+    userOrderInfoServiceCode -> ToUserOrderInfoMessage.userOrderInfoRoute,
+    timeOutTestServiceCode -> ToTimeOutTestMessage.timeOutTestRoute,
+    orderServersServiceCode -> ToOrderServersMessage.orderServersRoute,
+    h4InfoServiceCode -> ToH4InfoMessage.h4InfoRoute,
+    timeoutTest04ServiceCode -> ToTimeoutTest04Message.timeoutTest04Route,
+    furitInfoServiceCode -> ToFuritInfoMessage.furitInfoRoute,
+    furitServerServiceCode -> ToFuritServerMessage.furitServerRoute,
+    foodInfoServiceCode -> ToFoodInfoMessage.foodInfoRoute,
+    fruitServerServiceCode -> ToFruitServerMessage.fruitServerRoute,
+    carServerServiceCode -> ToCarServerMessage.carServerRoute,
+    userAccountServiceCode -> ToUserAccountMessage.userAccountRoute,
+    orderServerServiceCode -> ToOrderServerMessage.orderServerRoute,
+    rentCarMallPortalServiceCode -> ToRentCarMallPortalMessage.rentCarMallPortalRoute,
+    hHUserInfoServiceCode -> ToHHUserInfoMessage.hHUserInfoRoute,
+    testServiceServiceCode -> ToTestServiceMessage.testServiceRoute,
+    hHShop3PortalServiceCode -> ToHHShop3PortalMessage.hHShop3PortalRoute,
+    booksInfoServiceCode -> ToBooksInfoMessage.booksInfoRoute,
+    userInfoServerServiceCode -> ToUserInfoServerMessage.userInfoServerRoute,
+    mShopPortalServiceCode -> ToMShopPortalMessage.mShopPortalRoute,
+    hHShopPortalServiceCode -> ToHHShopPortalMessage.hHShopPortalRoute,
+    wShop3ServiceCode -> ToWShop3Message.wShop3Route,
+    mSShopInfoServiceCode -> ToMSShopInfoMessage.mSShopInfoRoute,
+    userServersServiceCode -> ToUserServersMessage.userServersRoute,
+    newTestService02ServiceCode -> ToNewTestService02Message.newTestService02Route,
+    carInfoServersServiceCode -> ToCarInfoServersMessage.carInfoServersRoute,
+    foodInfoServerServiceCode -> ToFoodInfoServerMessage.foodInfoServerRoute,
+    rentCarShopPortalServiceCode -> ToRentCarShopPortalMessage.rentCarShopPortalRoute,
+    wShopPortalServiceCode -> ToWShopPortalMessage.wShopPortalRoute,
+    testService04ServiceCode -> ToTestService04Message.testService04Route,
+  )
+
+}

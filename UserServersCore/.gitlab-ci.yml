@@ -1,0 +1,31 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  SBT_OPTS: "-Dsbt.override.build.repos=true"
+  GIT_DEPTH: '0'
+
+default:
+  before_script:
+    - export REGISTRY_IMAGE_LOWER=$(echo "${CI_GITLAB_REGISTRY_IMAGE}" | tr '[:upper:]' '[:lower:]')
+    - export CI_GITLAB_REGISTRY_IMAGE=$(echo "${CI_GITLAB_REGISTRY_IMAGE}"  | tr '[:upper:]' '[:lower:]')
+    - export PROJECT_NAME_LOWER=$(echo "$CI_PROJECT_NAME" | tr '[:upper:]' '[:lower:]')
+    - export CI_APP_NAME="$PROJECT_NAME_LOWER-$CI_PROJECT_ID"
+    - export CI_IMAGE="${REGISTRY_IMAGE_LOWER}:${CI_COMMIT_BRANCH}"
+    - export CI_PROJ_NAME=$(echo "${CI_PROJECT_NAME}"  | tr '[:upper:]' '[:lower:]')
+
+
+compile:
+  stage: build
+  tags:
+    - shell
+  script:
+    - sbt assembly
+    - echo "${CI_PASSWORD}" | docker login "${CI_GITLAB_REGISTRY}" -u "${CI_USERNAME}" --password-stdin
+    - docker build . -t "${CI_IMAGE}" --build-arg EXPOSE_PORT="${CI_EXPOSE_PORT}"  --build-arg CI_COMMIT_BRANCH="${CI_COMMIT_BRANCH}"
+    - docker push "${CI_IMAGE}"
+
+k8s-deploy:
+  stage: deploy
+  tags:
+    - shell_a1
+  script:
+    - envsubst < k8s-app.yaml | kubectl replace --force -f -

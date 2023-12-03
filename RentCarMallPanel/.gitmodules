@@ -1,0 +1,22 @@
+[submodule "src/Plugins/CommonUtils"]
+	path = src/Plugins/CommonUtils
+	url = ../../plugins/TSCommonUtils.git
+	branch = master
+[submodule "src/Plugins/UserServersApi"]
+	path = src/Plugins/UserServersApi
+	url = ../UserServers/UserServersApiTS.git
+[submodule "src/Plugins/UserServersShared"]
+	path = src/Plugins/UserServersShared
+	url = ../UserServers/UserServersSharedTS.git
+[submodule "src/Plugins/CarInfoServersApi"]
+	path = src/Plugins/CarInfoServersApi
+	url = ../CarInfoServers/CarInfoServersApiTS.git
+[submodule "src/Plugins/CarInfoServersShared"]
+	path = src/Plugins/CarInfoServersShared
+	url = ../CarInfoServers/CarInfoServersSharedTS.git
+[submodule "src/Plugins/OrderServersApi"]
+	path = src/Plugins/OrderServersApi
+	url = ../OrderServers/OrderServersApiTS.git
+[submodule "src/Plugins/OrderServersShared"]
+	path = src/Plugins/OrderServersShared
+	url = ../OrderServers/OrderServersSharedTS.git
