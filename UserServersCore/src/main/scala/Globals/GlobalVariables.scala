@@ -9,6 +9,7 @@ object GlobalVariables {
 
   /** ******************************* Threads ******************************** */
   var beforeSystemInit: () => Unit = () => {
+    DBUtils.dropDatabse()
     DBUtils.initDatabase()
   }
 

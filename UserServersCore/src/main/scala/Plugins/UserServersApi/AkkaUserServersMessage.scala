@@ -7,12 +7,14 @@ import scala.reflect.runtime.universe._
 
 import Plugins.UserServersApi.UseRegisterMessage
 import Plugins.UserServersApi.UserLoginMessage
+import Plugins.UserServersApi.QuestionMessage
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes(
 Array(
   new JsonSubTypes.Type(value = classOf[UseRegisterMessage], name = "UseRegisterMessage"),
   new JsonSubTypes.Type(value = classOf[UserLoginMessage], name = "UserLoginMessage"),
+  new JsonSubTypes.Type(value = classOf[QuestionMessage], name = "QuestionMessage"),
 ))
 abstract class AkkaUserServersMessage() extends ClusterAPI{
   override def getRoute: MQRoute = ToUserServersMessage.userServersRoute

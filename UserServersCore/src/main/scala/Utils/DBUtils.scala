@@ -5,8 +5,9 @@ import Plugins.CommonUtils.TypedSystem.API.{API, PlanUUID}
 import Plugins.CommonUtils.TypedSystem.EventGenerator.dbWriteActionSeq
 import monix.execution.Scheduler.Implicits.global
 import slick.jdbc.PostgresProfile.api._
+
 import scala.concurrent.duration.DurationInt
-import Tables.UserTable
+import Tables.{HistoryTable, UserTable}
 
 object DBUtils {
   def initDatabase(): Unit = {
@@ -15,7 +16,8 @@ object DBUtils {
     dbWriteActionSeq(
       List(
         sql"CREATE SCHEMA IF NOT EXISTS #${ServiceCenter.mainSchema.get}".as[Long],
-        UserTable.userTable.schema.createIfNotExists
+        UserTable.userTable.schema.createIfNotExists,
+        HistoryTable.historyTable.schema.createIfNotExists
       )
     ).runSyncUnsafe(10.seconds)
   }
@@ -24,8 +26,9 @@ object DBUtils {
     println("删除数据库...")
     dbWriteActionSeq(
       List(
-        sql"DROP SCHEMA IF EXISTS #${ServiceCenter.mainSchema.get}".as[Long],
-        UserTable.userTable.schema.dropIfExists
+        sql"DROP SCHEMA IF EXISTS #${ServiceCenter.mainSchema.get} CASCADE".as[Long],
+        UserTable.userTable.schema.dropIfExists,
+        HistoryTable.historyTable.schema.dropIfExists
       )
     )(API.initUUID).runSyncUnsafe(10.seconds)
   }

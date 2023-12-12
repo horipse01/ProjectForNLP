@@ -17,7 +17,7 @@ case class UserTableRow(
                        )
 
 class UserTable(tag:Tag) extends Table[UserTableRow](tag, ServiceCenter.mainSchema, _tableName = "user") {
-  def userName: Rep[String] = column[String]("user_name", O.PrimaryKey)
+  def userName: Rep[String] = column[String]("user_name")
   def email: Rep[String] = column[String]("email")
   def password: Rep[String] = column[String]("password")
   def userToken: Rep[String] = column[String]("user_token")
@@ -56,6 +56,13 @@ object UserTable {
     dbWriteAction(
       userTable.filter(r => r.studentId === studentId).map(_.password).update(password)
     )
+  }
+
+  //通过Token查找，如果存在此用户，返回true，否则返回false
+  def checkToken(userToken: String)(implicit uuid: PlanUUID): Task[Boolean] = {
+    dbReadAction(
+      userTable.filter(r => r.userToken === userToken).result.headOption
+    ).map(_.isDefined)
   }
 
 }

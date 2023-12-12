@@ -5,7 +5,7 @@ import {CarListPage} from 'Pages/CarListPage'
 import {OrderListPage} from 'Pages/OrderListPage'
 import {UserLoginPage} from 'Pages/UserLoginPage'
 import {UserRegisterPage} from 'Pages/UserRegisterPage'
-
+import {QuestionPage} from 'Pages/QuestionPage'
 /**这个函数为路由跳转，可以将其单独放置在一个JSX文件中*/
 const Layout = () => {
     return (
@@ -16,6 +16,7 @@ const Layout = () => {
                 <Route path="/register" exact component={UserRegisterPage} />
                 <Route path="/carlist" exact component={CarListPage} />
                 <Route path="/orderlist" exact component={OrderListPage} />
+                <Route path="/question" exact component={QuestionPage} />
             </Switch>
         </HashRouter>
     )

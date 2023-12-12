@@ -7,6 +7,7 @@ export const UserRegisterPage = () => {
     const history = useHistory()
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
+    const [studentId, setStudentId] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
@@ -14,6 +15,11 @@ export const UserRegisterPage = () => {
 
     const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value)
+    }
+
+    //改学号
+    const handleStudentIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setStudentId(event.target.value)
     }
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +52,7 @@ export const UserRegisterPage = () => {
             return
         }
 
-        new UseRegisterMessage(username, email, password).send(
+        new UseRegisterMessage(username, email, password, studentId).send(
             () => {
                 history.push('/login')
             },
@@ -77,6 +83,14 @@ export const UserRegisterPage = () => {
                         label="UserName"
                         value={username}
                         onChange={handleUsernameChange}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <TextField
+                        label="StudentId"
+                        value={studentId}
+                        onChange={handleStudentIdChange}
                         fullWidth
                         margin="normal"
                         required
